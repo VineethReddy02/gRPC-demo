@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package registration;
+option go_package="registration";
+
+message register_request {
+    string name = 1;
+    string email = 2;
+}
+
+message register_response {
+    string registration_id = 1;
+}
+
+message batch_register_request {
+    repeated register_request bulk_request = 1;
+}
+
+message bulk_register_response {
+    repeated register_response bulk_response = 1;
+}
+
+message nothing {}
+
+service Registration_service {
+    // Unary
+    rpc register(register_request) returns (register_response) {};
+    // Client streaming
+    rpc register_bulk(stream register_request) returns (bulk_register_response) {};
+    // Server streaming
+    rpc get_registered_data(nothing) returns (stream register_response) {};
+    // client/server streaming
+    rpc register_multiple_requests(stream register_request) returns (stream register_response) {};
+}
