@@ -12,9 +12,6 @@ message register_response {
     string registration_id = 1;
 }
 
-message batch_register_request {
-    repeated register_request bulk_request = 1;
-}
 
 message bulk_register_response {
     repeated register_response bulk_response = 1;

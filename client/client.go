@@ -12,7 +12,7 @@ import (
 func main() {
 	fmt.Println("Hello client here!")
 
-	cc, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+	cc, err := grpc.Dial("localhost:6666", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("could not connect: %v", err)
 	}

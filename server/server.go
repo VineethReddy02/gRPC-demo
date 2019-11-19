@@ -5,6 +5,7 @@ import (
 	"fmt"
 	registration "github.com/VineethReddy02/gRPC/registration-demo/protobuf"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 	"io"
 	"log"
 	"math/rand"
@@ -105,11 +106,13 @@ func(*server) RegisterMultipleRequests(request registration.RegistrationService_
 func main() {
 	fmt.Println("Hello gRPC")
 
-	lis, err := net.Listen("tcp","0.0.0.0:50051")
+	lis, err := net.Listen("tcp","0.0.0.0:6666")
 	if err != nil {
 		log.Fatalf("failed to listen: %v",err)
 	}
 	s := grpc.NewServer()
+	// Enable reflection to expose endpoints this server offers.
+	reflection.Register(s)
 	registration.RegisterRegistrationServiceServer(s, &server{})
 
 	if err := s.Serve(lis); err != nil {
